@@ -39,6 +39,10 @@ Sistema de Gestión de Inventarios de Insumos(nombre, descripción, precio, cant
 - Gestionar Usuarios.
 - Gestionar Insumos.
 - Gestionar Documentación.
+- Gestionar Proveedores.
+- Gestionar Notificaciones.
+- Gestionar insumos y proveedores eliminados.
+- Visualizar las acciones realizadas con los insumos.
 - Generar Reportes.
 - Visualizar los reportes utilizando gráficos de barras.
 - Exportar los reportes en formato PDF.
@@ -47,7 +51,7 @@ Sistema de Gestión de Inventarios de Insumos(nombre, descripción, precio, cant
 
 - Lenguaje de Programación: [Java](https://www.java.com/es/) - Utilizado para desarrollar una aplicación de escritorio para sistema operativo Windows.
 - Entorno de Desarrollo: [NetBeans](https://netbeans.apache.org/front/main/index.html) - Facilita la creación de aplicaciones de escritorio utilizando Java.
-- Gestor de Bases de Datos: [MySQL](https://www.mysql.com/) - Permitir gestionar las tablas donde se almacena toda la información sobre el sistema.
+- Gestor de Bases de Datos: [MySQL](https://www.mysql.com/) - Permitir gestionar las tablas donde se almacena toda la información que genera el sistema.
 - Mapeo Objeto-Relacional(ORM): [Hibernate](https://hibernate.org/orm/releases/4.3/) - Mejora la forma de mapear los atributos de una base de datos tradicional.
 - Escalar imágenes: RSScaleLabel - Permite que las imágenes escalen para mejorar su presentación en cualquier tamaño.
 - Manejar PDFs: [itext-pdf4](https://itextpdf.com/) - Facilitar la gestión y manipulación de archivos pdf.
@@ -64,7 +68,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 - Un proveedor puede tener documentos.
 - Un usuario puede crear, actualizar, listar, eliminar documentos.
 - Un usuario puede crear, actualizar, listar, eliminar, notificaciones.
-- Un usuario puede recuperar insumos eliminados.
+- Un usuario puede recuperar insumos/proveedores eliminados.
 - Todas las acciones relacionadas con los insumos, se registran.
 - Un usuario puede ver todas las acciones realizadas.
 
@@ -72,7 +76,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo    | Tipo    | Descripción            |
 |----------|---------|------------------------|
-| id       | UUID    | Identificar único      |
+| id       | UUID    | Identificador único      |
 | nombre   | Varchar | Nombre del Usuario     |
 | apellido | Varchar | Apellido del Usuario   |
 | password | Varchar | Contraseña del Usuario |
@@ -80,17 +84,16 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 | tipo     | Varchar | Tipo de Usuario        |
 | estado   | Bit     | Estado del Usuario     |
 
-
 ### Insumo
 
 | Campo           | Tipo     | Descripción                |
 |-----------------|----------|----------------------------|
-| id              | UUID     | Identificar único          |
+| id              | UUID     | Identificador único          |
 | nombre          | Varchar  | Nombre del Insumo          |
 | descripcion     | Varchar  | Descripción del Insumo     |
 | cantidad        | Double   | Cantidad del Insumo        |
 | imagen          | Longblob | Imagen del Insumo          |
-| precio_unitorio | Double   | Precio Unitario del Insumo |
+| precio_unitario | Double   | Precio Unitario del Insumo |
 | tipo            | Varchar  | Tipo del Insumo            |
 | estado          | Bit      | Estado del Insumo          |
 
@@ -98,7 +101,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo      | Tipo    | Descripción                          |
 |------------|---------|--------------------------------------|
-| id         | UUID    | Identificar único                    |
+| id         | UUID    | Identificador único                    |
 | cantidad   | Double  | Cantidad de la Notificación          |
 | f_creacion | Varchar | Fecha de Creación de la Notificación |
 | fecha      | Varchar | Fecha de la Notificación             |
@@ -109,7 +112,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo     | Tipo    | Descripción             |
 |-----------|---------|-------------------------|
-| id        | UUID    | Identificar único       |
+| id        | UUID    | Identificador único       |
 | cedula    | Varchar | Cédula del Proveedor    |
 | nombres   | Varchar | Nombres del Proveedor   |
 | apellidos | Varchar | Apellidos del Proveedor |
@@ -123,7 +126,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo        | Tipo      | Descripción             |
 |--------------|-----------|-------------------------|
-| id           | UUID      | Identificar único       |
+| id           | UUID      | Identificador único       |
 | nombre       | Varchar   | Nombre del Documento    |
 | fecha        | Varchar   | Fecha del Documento     |
 | estado       | Bit       | Estado del Documento    |
@@ -133,7 +136,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo           | Tipo      | Descripción                  |
 |-----------------|-----------|------------------------------|
-| id              | UUID      | Identificar único            |
+| id              | UUID      | Identificador único            |
 | cantidad        | Double    | Cantidad de la Acción        |
 | producto        | Varchar   | Producto de la Acción        |
 | descripcion     | Varchar   | Descripción de la Acción     |
@@ -147,100 +150,117 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 <table>
   
   <tr>
-    <td width="50%">
+      <td>
       <h3 align="center">Iniciar Sesión</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/login.PNG" width="80%" alt="Login">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/login.PNG" width="80%" alt="Login Screen">
         <p>
-          - Un Usuario puede iniciar sesión con su nombre de usuario y contraseña.
-        </p>
-      </div>
-    </td>
-    <td width="50%">
-      <h3 align="center">Restablecer Contraseña</h3>
-      <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/reset_password.PNG" width="80%" alt="Reset Password">
-        <p>
-          - Un Usuario puede cambiar su contraseña utilizando su nombre nombre de usuario, con esto se le envía un link a su email con el procedimiento correspondiente.
+          - Un Usuario que tenga una cuenta registrada en la base de datos puede iniciar sesión para acceder al sistema.
         </p>
       </div>
     </td>
   
   <tr>
-    <td witdh="100%" colspan="2">
-      <h3 align="center">Gestionar Categorías</h3>
+    <td>
+      <h3 align="center">Menú Principal</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/categorias.PNG" width="80%" alt="Categories">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/menu.PNG" width="80%" alt="Principal Menu">
         <p>
-          - Crear, actualizar, listar, eliminar categorías.
+          - 1) Control de Insumos: Todas las funciones relacionadas con gestionar los insumos. <br/>
+          - 2) Documentación de Proveedores: Gestionar proveedores y su documentación relacionada, ademas de documentación en general. <br/>
+          - 3) Configuraciones: Gestionar usuarios (crear, listar, editar, eliminar o recuperar).
         </p>
       </div>
     </td>
   </tr>
   
   <tr>
-    <td width="100%" colspan="2">
-      <h3 align="center">Gestionar Productos</h3>
+    <td>
+      <h3 align="center">Lista/Edición de Insumos</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/productos.PNG" width="80%" alt="Products">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/edit_insumo.PNG" width="80%" alt="List/Edit Insumo">
         <p>
-          - Crear, actualizar, listar, eliminar productos.
+          - Listar todos los insumos registrados en la base de datos y que esten activos. <br/>
+          - Buscar por el nombre o filtrar por el tipo de candidad. <br/>
+          - Editar o Eliminar la información del Insumo. <br/>
+          - Actualizar los ingresos/retiros del Insumo.
         </p>
       </div>
     </td>
   </tr>
   
   <tr>
-    <td width="100%" colspan="2">
-      <h3 align="center">Gestionar Clientes</h3>
+    <td>
+      <h3 align="center">Crear Nuevo Insumo</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/clientes.PNG" width="80%" alt="Clients">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/create_insumo.PNG" width="80%" alt="Create Insumo">
         <p>
-          - Crear, actualizar, listar, eliminar clientes.
+          - Registrar un nuevo insumo en la base de datos. Se registrar el nombre, la cantidad, el tipo de cantidad, el precio  unitario, el inventario mínimo(esto tiene relación con la notificación), la descripción e imagen del insumo. <br/>
+          - Opción para calcular el precio unitario, porque la mayoría no comprar por unidades un producto. <br/>
+          - Cuando se crea un insumo automáticamente se crea una notificación relacionada con el mismo.
         </p>
       </div>
     </td>
   </tr>
   
   <tr>
-    <td width="100%" colspan="2">
-      <h3 align="center">Gestionar Ventas</h3>
+    <td>
+      <h3 align="center">Gestionar Notificaciones</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/ventas.PNG" width="80%" alt="Sales">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/notifications.PNG" width="80%" alt="Notifications Screen">
         <p>
-          - Crear, actualizar, listar, eliminar ventas.          
+          - Ver la lista de todas las notificaciones, buscar por el nombre del insumo, editar la cantidad mínima permitida del insumo. <br/>
+          - Código de Colores: 1) Verde, cantidad por igual o mayor que lo optimo; 2) Amarillo, la cantidad se esta acercando a la cantidad mínima; 3) Rojo, la cantidad es igual o menor que la cantidad mínima y es necesario ingresar existencias a ese insumo.
+          </p>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <h3 align="center">Gestionar Reportes</h3>
+      <div align="center">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/report_1.PNG" width="80%" alt="Report Screen">
+        <p>
+          - Generar reportes relacionados con los insumos. Ordenar por distintos factores. Filtrar por fechas, productos. <br/>
+          - Mostrar los datos de cada insumo en un tabla, además de los totales de acuerdo a los filtros establecidos.
         </p>
         <br/>
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/detalle_venta.PNG" width="80%" alt="Sales">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/report_pdf.PNG" width="80%" alt="Report PDF">
         <p>
-          - Descripción de la venta: productos vendidos, cliente, fecha de la venta, subtotal, IVA y precio total.   
+          - El sistema permite exportar el reporte generado en formato PDF.
+       </p>
+        <br/>
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/report_graphic.PNG" width="80%" alt="Report Graphic">
+        <p>
+          - El sistema permite mostrar el reporte de insumos de dos formas: 1) Una tabla, 2) Gráficos de Barras. <br/>
+          - El gráfico de barras tiene cuatro opciones de interes: 1) Ver los ingresos, 2) Ver los retiros, 3) Ver por el precio unitario, 4) Ver por el costo total(el dinero total invertido en ese insumo).
+       </p>
+        <br/>
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/report_actions.PNG" width="80%" alt="Report Actions">
+        <p>
+          - Ver todas las acciones realizadas con los insumos(crear, editar, eliminar, ingresos, retiros. <br/>
+          - Filtrar por tipo de acción y fecha.
         </p>
       </div>
     </td>
   </tr>
   
   <tr>
-    <td witdh="100%" colspan="2">
-      <h3 align="center">Generación de Reportes de Ventas</h3>
+    <td>
+      <h3 align="center">Gestionar Proveedores</h3>
       <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/date_picker.PNG" width="40%" alt="Date Range">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/reporte.PNG" width="40%" alt="Report">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/proveedores.PNG" width="80%" alt="Suppliers">
         <p>
-          - El usuario puede escoger el rango de fecha de los reportes.
-          - Opciones para descargar el reporte en formato excel o pdf.
+          - Listar todos los proveedores o buscar por el nombre. Crear nuevos proveedores. Editar o Eliminar proveedores haciendo click en la lista de proveedores y luego confirmar el cambio. <br/>
+          - Boton de PDF para ver todos los documentos relacionados a ese proveedor.
         </p>
-      </div>
-    </td>
-  </tr>
-  
-  <tr>
-    <td width="100%" colspan="2">
-      <h3 align="center">Gestionar Usuarios</h3>
-      <div align="center">
-        <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/usuarios.PNG" width="80%" alt="Users">
+        <br/>
+         <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/proveedores_pdf.PNG" width="80%" alt="Suppliers PDF">
         <p>
-          - Crear, actualizar, listar, eliminar usuarios. <br/>
-          - Solo los usuarios de tipo administrador pueden acceder a esta opción.
+          - Listar, Crear, Actualizar, Eliminar documentos. <br/>
+          - Buscar por el título del documento, filtrar por el proveedor o listar los documentos que no esten relacionados a un proveedor en específico. <br/>
+          - Abrir el documento PDF.
         </p>
       </div>
     </td>
