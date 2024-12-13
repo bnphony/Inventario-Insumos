@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/bnphony/Sistema-Inventario/master/proyecto1/static/img/general.PNG" width="80%" alt="Main Screen">
+  <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/menu.PNG" width="80%" alt="Main Screen">
   <br/><br/>
   
   ![GitHub](https://img.shields.io/github/last-commit/bnphony/Inventario-Insumos)
@@ -19,16 +19,16 @@
 
 ## Indice
 
-- [Sistema de Inventario](#sistema-de-inventario)
+- [Inventario Insumos](#inventario-insumos)
   - [Descripción](#descripción)
      - [Tecnologías](#tecnologías)
   - [Dominio](#dominio)
      - [Usuario](#usuario)
-     - [Categoría](#categoría)
-     - [Producto](#producto)
-     - [Cliente](#cliente)
-     - [Venta](#venta)
-     - [Descripción de la Venta](#descripción-de-la-venta)
+     - [Insumo](#insumo)
+     - [Notificación](#notificación)
+     - [Proveedor](#proveedor)
+     - [Documentación](#documentación)
+     - [Acciones](#acciones)
   - [Funciones](#funciones)
   - [Autor](#autor)
      - [Contacto](#contacto)
@@ -49,19 +49,19 @@ Sistema de Gestión de Inventarios de Insumos(nombre, descripción, precio, cant
    
 ### Tecnologías
 
-- Lenguaje de Programación: [Java](https://www.java.com/es/) - Utilizado para desarrollar una aplicación de escritorio para sistema operativo Windows.
+- Lenguaje de Programación: [Java](https://www.java.com/es/) - Utilizado para desarrollar aplicaciones de escritorio para sistemas operativos Windows.
 - Entorno de Desarrollo: [NetBeans](https://netbeans.apache.org/front/main/index.html) - Facilita la creación de aplicaciones de escritorio utilizando Java.
 - Gestor de Bases de Datos: [MySQL](https://www.mysql.com/) - Permitir gestionar las tablas donde se almacena toda la información que genera el sistema.
 - Mapeo Objeto-Relacional(ORM): [Hibernate](https://hibernate.org/orm/releases/4.3/) - Mejora la forma de mapear los atributos de una base de datos tradicional.
 - Escalar imágenes: RSScaleLabel - Permite que las imágenes escalen para mejorar su presentación en cualquier tamaño.
 - Manejar PDFs: [itext-pdf4](https://itextpdf.com/) - Facilitar la gestión y manipulación de archivos pdf.
-- Generar Reportes: [JarperReport](https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports/6.0.0) - Colocar contenido dinámico en archivos pdf.
-- Notificación: JCarrierPigeon - Mostrar notificaciones en el escritorio en forma de popup.
+- Generar Reportes: [JasperReport](https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports/6.0.0) - Colocar contenido dinámico en archivos pdf.
+- Notificaciones: JCarrierPigeon - Mostrar notificaciones en el escritorio en forma de popup.
   
 ## Dominio
 
 Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedores.
-- Solo un usuario con privilegios de administrador puede crear nuevos usuarios, desde dentro del sistema.
+- Solo un usuario con privilegios de administrador puede crear nuevos usuarios, dentro del sistema.
 - Los usuarios pueden iniciar sesión, restablecer su contraseña, editar su perfil.
 - Un usuario puede crear, actualizar, listar, eliminar insumos.
 - Un usuario puede crear, actualizar, listar, eliminar proveedores.
@@ -76,7 +76,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo    | Tipo    | Descripción            |
 |----------|---------|------------------------|
-| id       | UUID    | Identificador único      |
+| id       | UUID    | Identificador único    |
 | nombre   | Varchar | Nombre del Usuario     |
 | apellido | Varchar | Apellido del Usuario   |
 | password | Varchar | Contraseña del Usuario |
@@ -88,7 +88,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo           | Tipo     | Descripción                |
 |-----------------|----------|----------------------------|
-| id              | UUID     | Identificador único          |
+| id              | UUID     | Identificador único        |
 | nombre          | Varchar  | Nombre del Insumo          |
 | descripcion     | Varchar  | Descripción del Insumo     |
 | cantidad        | Double   | Cantidad del Insumo        |
@@ -101,7 +101,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo      | Tipo    | Descripción                          |
 |------------|---------|--------------------------------------|
-| id         | UUID    | Identificador único                    |
+| id         | UUID    | Identificador único                  |
 | cantidad   | Double  | Cantidad de la Notificación          |
 | f_creacion | Varchar | Fecha de Creación de la Notificación |
 | fecha      | Varchar | Fecha de la Notificación             |
@@ -112,7 +112,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo     | Tipo    | Descripción             |
 |-----------|---------|-------------------------|
-| id        | UUID    | Identificador único       |
+| id        | UUID    | Identificador único     |
 | cedula    | Varchar | Cédula del Proveedor    |
 | nombres   | Varchar | Nombres del Proveedor   |
 | apellidos | Varchar | Apellidos del Proveedor |
@@ -126,7 +126,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo        | Tipo      | Descripción             |
 |--------------|-----------|-------------------------|
-| id           | UUID      | Identificador único       |
+| id           | UUID      | Identificador único     |
 | nombre       | Varchar   | Nombre del Documento    |
 | fecha        | Varchar   | Fecha del Documento     |
 | estado       | Bit       | Estado del Documento    |
@@ -136,7 +136,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
 
 | Campo           | Tipo      | Descripción                  |
 |-----------------|-----------|------------------------------|
-| id              | UUID      | Identificador único            |
+| id              | UUID      | Identificador único          |
 | cantidad        | Double    | Cantidad de la Acción        |
 | producto        | Varchar   | Producto de la Acción        |
 | descripcion     | Varchar   | Descripción de la Acción     |
@@ -210,7 +210,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
         <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/notifications.PNG" width="80%" alt="Notifications Screen">
         <p>
           - Ver la lista de todas las notificaciones, buscar por el nombre del insumo, editar la cantidad mínima permitida del insumo. <br/>
-          - Código de Colores: 1) Verde, cantidad por igual o mayor que lo optimo; 2) Amarillo, la cantidad se esta acercando a la cantidad mínima; 3) Rojo, la cantidad es igual o menor que la cantidad mínima y es necesario ingresar existencias a ese insumo.
+          - Código de Colores: 1) Verde, cantidad igual o mayor que lo óptimo; 2) Amarillo, la cantidad se esta acercando a la cantidad mínima; 3) Rojo, la cantidad es igual o menor que la cantidad mínima y es necesario ingresar existencias a ese insumo.
           </p>
       </div>
     </td>
@@ -239,7 +239,7 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
         <br/>
         <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/report_actions.PNG" width="80%" alt="Report Actions">
         <p>
-          - Ver todas las acciones realizadas con los insumos(crear, editar, eliminar, ingresos, retiros. <br/>
+          - Ver todas las acciones realizadas con los insumos(crear, editar, eliminar, ingresos, retiros). <br/>
           - Filtrar por tipo de acción y fecha.
         </p>
       </div>
@@ -265,12 +265,29 @@ Gestionar usuarios, insumos, documentación, acciones, notificaciones, proveedor
       </div>
     </td>
   </tr>
+
+  <tr>
+    <td>
+      <h3 align="center">Gestionar Usuarios</h3>
+      <div align="center">
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/users.PNG" width="80%" alt="Users Screen">
+        <p>
+          - Crear, Listar, Editar, Eliminar Usuarios. Además se puede buscar por el nombre de usuario.
+        </p>
+        <br/>
+        <img src="https://raw.githubusercontent.com/bnphony/Inventario-Insumos/master/Instalador/img/users_deleted.PNG" width="80%" alt="Users Deleted Screen">
+        <p>
+          - Ver los usuarios eliminados y dar click sobre los mismos para re-activarlos.
+          </p>
+      </div>
+    </td>
+  </tr>
   
 </table>
 
 
 ## Autor
-Codificado por [Bryan Jhoel Tarco Taipe](https://github.com/bnphony), basado en el tutorial [Curso de Django3](https://youtu.be/XclfcvFjN48?si=cKXKIUnwvoaoEQpc) por [William Jair Dávila Vargas](https://algorisoft.com/)
+Codificado por [Bryan Jhoel Tarco Taipe](https://github.com/bnphony).
 
 ### Contacto
 <a href="https://www.linkedin.com/in/bryan-tarco01" rel="noopener noreferrer" target="_blank">
@@ -286,5 +303,5 @@ Codificado por [Bryan Jhoel Tarco Taipe](https://github.com/bnphony), basado en 
 
 
 ## Licencia de Uso
-Este repositorio y todo su contenido está licenciado bajo licencia **Creative Commons**. Por favor si compartes, usas o modificas este proyecto cita a sus
-autores, y usa las mismas condiciones para su uso docente, formativo o educativo y no comercial.
+Este repositorio y todo su contenido está licenciado bajo licencia **Creative Commons**. Por favor si compartes, usas o modificas este proyecto cita a su
+autor, y usa las mismas condiciones para su uso docente, formativo o educativo y no comercial.
