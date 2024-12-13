@@ -1,0 +1,575 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sistema_inventario;
+
+import ConexionBDD.Conexion;
+import ConexionBDD.Timer1;
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import static sistema_inventario.Inicio.tipo_usuario;
+
+public class Configuracion extends javax.swing.JFrame implements ActionListener {
+
+    Conexion cc = new Conexion();
+    Connection con = cc.getConnection();
+    modificar_usuario jPanel2 = new modificar_usuario();
+    Statement st;
+    ResultSet rs;
+    DefaultTableModel modelo;
+    String nomb;
+    
+    private Timer1 t = new Timer1();
+
+    //modificar_usuario config;
+    /**
+     * Creates new form Inicio
+     */
+    //alertas alerta = new alertas();
+
+    //CardLayout vista;
+    /**
+     * Creates new form Configuracion1
+     */
+    modificar_usuario configura;
+    /**
+     * Creates new form Inicio
+     */
+    CardLayout configuracion;
+    
+    E_Usuarios eu = new E_Usuarios();
+    public Configuracion() {
+
+        this.configura = new modificar_usuario();
+        initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes_insumos/sello_prolase.png")).getImage());
+        this.setLocationRelativeTo(null);
+        configuracion = (CardLayout) panel_config.getLayout();
+
+        if (tipo_usuario.equals("Usuario")) {
+            btn_actualizados.setEnabled(false);
+            panel_config.setVisible(false);
+        }
+
+        //Mostrardatos();
+
+        locoDa();
+
+        panel_config.add(jPanel2);
+        panel_config.add(eu);
+        eu.setVisible(false);
+        jPanel2.setVisible(false);
+
+        //btn_actualizados.addActionListener(this);
+        this.btn_eliminados.setOpaque(true);
+        this.btn_actualizados.setBackground(new Color(199,0,49));
+        this.btn_actualizados.setForeground(Color.white);
+
+    }
+
+    public void locoDa() {
+        t.iniciar1();
+        String[] titulos = {"  Nombres ", "Tipo"};
+        String[] registros = new String[2];
+
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+        String SQL = "select * from usuario WHERE estado_usuario = 1";
+
+        try {
+
+            st = con.createStatement();
+            rs = st.executeQuery(SQL);
+
+            while (rs.next()) {
+                registros[0] = rs.getString("nombre_usuario");
+                registros[1] = rs.getString("tipo_usuario");
+
+                modelo.addRow(registros);
+            }
+            t.pausar("Buscar Usuarios");
+            jTable2.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de acceso " + e.getMessage());
+        }
+
+    }
+
+    public void Mostrardatos() {
+
+        t.iniciar1();
+        String SQL = "select * from usuario";
+        String[] titulos = {"Nombre", "Apellido", "Correo", "Tipo Usuario"};
+        String[] registros = new String[4];
+
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+
+        try {
+
+            st = con.createStatement();
+            rs = st.executeQuery(SQL);
+
+            while (rs.next()) {
+                registros[0] = rs.getString("nombre_usuario");
+                registros[1] = rs.getString("apellido_usuario");
+                registros[2] = rs.getString("correo_usuario");
+                registros[3] = rs.getString("tipo_usuario");
+
+                modelo.addRow(registros);
+            }
+            t.pausar("Mostrar Datos");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de acceso " + e.getMessage());
+        }
+
+    }
+
+//    public void eliminar() {
+//
+//        int fila = jTable2.getSelectedRow();
+//        if (fila == -1) {
+//            JOptionPane.showMessageDialog(null, "Seleccione un Usuario");
+//        } else {
+//            String sql = "delete from usuario where nombre_usuario=";
+//            try {
+//                st = con.createStatement();
+//                rs = st.executeQuery(sql);
+//                JOptionPane.showMessageDialog(null, "Eliminado correctamente");
+//            } catch (Exception e) {
+//
+//            }
+//        }
+//    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panel_config = new javax.swing.JPanel();
+        panel_config1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jsiguiente1 = new javax.swing.JButton();
+        btn_eliminados = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        btn_actualizados = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1050, 600));
+        setUndecorated(true);
+
+        panel_config.setBackground(new java.awt.Color(252, 249, 249));
+        panel_config.setLayout(new java.awt.CardLayout());
+
+        panel_config1.setBackground(new java.awt.Color(252, 249, 249));
+        panel_config1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir.png"))); // NOI18N
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        panel_config1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 20, 40, 30));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        panel_config1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 70, 30));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(5, 50, 50));
+        jLabel11.setText("Configuracion de Usuarios");
+        panel_config1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 290, 30));
+
+        jButton1.setBackground(new java.awt.Color(252, 249, 249));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        panel_config1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1, 60, 70));
+
+        jPanel1.setBackground(new java.awt.Color(252, 249, 249));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(5, 50, 50));
+        jLabel8.setText("Usuarios ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 170, 30));
+
+        jSeparator1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 270, 10));
+
+        jTable2.setBackground(new java.awt.Color(115, 173, 252));
+        jTable2.setForeground(new java.awt.Color(255, 255, 255));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 270, 190));
+
+        jPanel3.setBackground(new java.awt.Color(252, 249, 249));
+
+        jsiguiente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/siguien.png"))); // NOI18N
+        jsiguiente1.setBorder(null);
+        jsiguiente1.setBorderPainted(false);
+        jsiguiente1.setContentAreaFilled(false);
+        jsiguiente1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jsiguiente1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jsiguiente1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jsiguiente1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jsiguiente1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jsiguiente1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jsiguiente1MouseReleased(evt);
+            }
+        });
+        jsiguiente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jsiguiente1ActionPerformed(evt);
+            }
+        });
+
+        btn_eliminados.setBackground(new java.awt.Color(252, 249, 249));
+        btn_eliminados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_eliminados.setForeground(new java.awt.Color(255, 0, 0));
+        btn_eliminados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_eliminados.setText("Ver Usuarios Eliminados");
+        btn_eliminados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_eliminadosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_eliminadosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_eliminadosMouseExited(evt);
+            }
+        });
+
+        btn_actualizados.setBackground(new java.awt.Color(252, 249, 249));
+        btn_actualizados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_actualizados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_actualizados.setText("Actualizar");
+        btn_actualizados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizados.setOpaque(true);
+        btn_actualizados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_actualizadosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jsiguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_eliminados, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_actualizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(304, Short.MAX_VALUE)
+                .addComponent(jsiguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btn_actualizados, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btn_eliminados)
+                .addGap(5, 5, 5)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 270, 480));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_config, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_config1, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel_config1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_config, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        int dialog = JOptionPane.YES_NO_OPTION;
+        int result = JOptionPane.showConfirmDialog(null, "Desea Salir del Programa", "Exit", dialog);
+        if (result == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        this.setState(Inicio.ICONIFIED);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Menu_principal Menu = new Menu_principal();
+        Menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jsiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jsiguiente1ActionPerformed
+        /*
+        jTable1.setVisible(true);
+         */
+    }//GEN-LAST:event_jsiguiente1ActionPerformed
+
+    private void jsiguiente1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsiguiente1MouseReleased
+
+    }//GEN-LAST:event_jsiguiente1MouseReleased
+
+    private void jsiguiente1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsiguiente1MouseExited
+
+    }//GEN-LAST:event_jsiguiente1MouseExited
+
+    private void jsiguiente1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsiguiente1MouseEntered
+
+        /*
+
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/siguien.png")).getImage());
+
+        ImageIcon img_1 = new ImageIcon(getClass().getResource("/Imagenes/siguien.png"));
+        Icon fondo_1 = new ImageIcon(img_1.getImage().getScaledInstance(this.jsiguiente1.getWidth(), this.jsiguiente1.getHeight(), Image.SCALE_DEFAULT));
+        this.jsiguiente1.setIcon(fondo_1);
+
+        panel_config.removeAll();
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+         */
+    }//GEN-LAST:event_jsiguiente1MouseEntered
+
+    private void jsiguiente1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsiguiente1MouseClicked
+
+        /*
+        if(!jsiguiente1.isSelected()){
+
+            panel_config.add(configura,"configura_");
+            configuracion.show(panel_config,"configura");
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+            ImageIcon img_1 = new ImageIcon(getClass().getResource("/Imagenes/siguiente_inverso_1.png"));
+            Icon fondo_1 = new ImageIcon(img_1.getImage().getScaledInstance(this.jsiguiente1.getWidth(), this.jsiguiente1.getHeight(), Image.SCALE_DEFAULT));
+            this.jsiguiente1.setIcon(fondo_1);
+
+        }else{
+            panel_config.removeAll();
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+
+        }
+         */
+    }//GEN-LAST:event_jsiguiente1MouseClicked
+
+    private void jsiguiente1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jsiguiente1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jsiguiente1MousePressed
+
+    private void btn_eliminadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminadosMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+        jPanel2.setVisible(false);
+        eu.imprimirEliminados();
+        eu.setVisible(true);
+        
+        
+        
+        this.btn_eliminados.setBackground(new Color(199,0,49));
+        this.btn_eliminados.setForeground(Color.white);
+        
+        this.btn_actualizados.setBackground(new Color(252,249,249));
+        this.btn_actualizados.setForeground(Color.black);
+    }//GEN-LAST:event_btn_eliminadosMouseClicked
+
+    private void btn_eliminadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminadosMouseEntered
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btn_eliminadosMouseEntered
+
+    private void btn_eliminadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminadosMouseExited
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_eliminadosMouseExited
+
+    private void btn_actualizadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizadosMouseClicked
+        // TODO add your handling code here:
+         this.locoDa();
+        eu.setVisible(false);
+        jPanel2.setVisible(true);
+        
+    
+        
+        
+        this.btn_actualizados.setBackground(new Color(199,0,49));
+        this.btn_actualizados.setForeground(Color.white);
+        
+        this.btn_eliminados.setBackground(new Color(252,249,249));
+        this.btn_eliminados.setForeground(new Color(255,0,0));
+              
+    }//GEN-LAST:event_btn_actualizadosMouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable2.getModel();
+        
+        int sRow = this.jTable2.getSelectedRow();
+        
+        String nombre = modelo.getValueAt(sRow, 0).toString();
+        jPanel2.consulta(nombre);
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Configuracion().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_actualizados;
+    private javax.swing.JLabel btn_eliminados;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JButton jsiguiente1;
+    private javax.swing.JPanel panel_config;
+    private javax.swing.JPanel panel_config1;
+    // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object evt = e.getSource();
+        if (evt.equals(btn_actualizados)) {
+
+            jPanel2.setVisible(false);
+            panel_config.add(jPanel2);
+            panel_config.validate();
+
+        }
+    }
+}
